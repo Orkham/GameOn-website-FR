@@ -10,6 +10,7 @@ function editNav() {
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
+const modalSuccess = document.querySelector(".modalSuccess");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.getElementById("closeBtn");
@@ -27,13 +28,41 @@ const location4 = document.getElementById("location4");
 const location5 = document.getElementById("location5");
 const location6 = document.getElementById("location6");
 const checkboxCondition = document.getElementById("checkbox1");
-// VALIDITY CHECKER
-let validityResult = true;
+const endButton = document.getElementById("end-btn");
+const form = document.getElementById("form");
+// CHECK VALIDATION ELEMENTS
+let firstNameValidate;
+let lastNameValidate;
+let emailValidate;
+let birthdateValidate;
+let tournamentNumberValidate;
+let isCitySelectedValidate;
+let isConditionCheckedValidate;
+
 
 
 // submit form
 function validate(e){
   e.preventDefault();
+  checkForm();
+  if( firstNameValidate == true &&
+    lastNameValidate == true &&
+    emailValidate == true &&
+    birthdateValidate == true &&
+    tournamentNumberValidate == true &&
+    isCitySelectedValidate == true &&
+    isConditionCheckedValidate == true){
+      validateMessageDisplay();
+      form.reset();
+      
+  }else{
+    e.preventDefault();
+  };
+  
+}
+submitBtn.addEventListener("click",validate);
+// check validation form
+function checkForm(){
   checkFirst(firstName.value);
   checkLast(lastName.value);
   checkEmail(email.value);
@@ -41,12 +70,7 @@ function validate(e){
   checkTournamentNumber(quantity.value);
   isCityBtnSelected();
   isConditionChecked(checkboxCondition);
-  console.log("formulaire envoyé");
-  //validateMessageDisplay(validityResult);
-  
 }
-submitBtn.addEventListener("click",validate);
-  
 // fermeture modal
 function close(){
   modalbg.style.display = "none";
@@ -61,17 +85,23 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+// fermeture fenêtre validation formulaire
+function closeSuccess(){
+  modalSuccess.style.display ="none";
+}
+endButton.addEventListener("click",closeSuccess);
+
 // vérification des données
 
 function checkFirst(data){
   if(data.length > 1){
     //console.log("first:ok");
     document.getElementById("missingFirstName").style.display = "none";
-    validityResult = true;
+    firstNameValidate = true;
   }else{
     //console.log("first:error");
     document.getElementById("missingFirstName").style.display = "block";
-    validityResult = false;
+    firstNameValidate = false;
   }
 }
 
@@ -79,11 +109,11 @@ function checkLast(data){
   if(data.length > 1){
     //console.log("last:ok");
     document.getElementById("missingLastName").style.display = "none";
-    validityResult = true;
+    lastNameValidate = true;
   }else{
     //console.log("last:error");
     document.getElementById("missingLastName").style.display = "block";
-    validityResult = false;
+    lastNameValidate = false;
   }
 }
 
@@ -99,11 +129,11 @@ function checkEmail(email){
   if(validateEmail(email)){
     //console.log("mail:ok");
     document.getElementById("missingMail").style.display = "none";
-    validityResult = true;
+    emailValidate = true;
   }else{
     //console.log("mail:error");
     document.getElementById("missingMail").style.display = "block";
-    validityResult = false;
+    emailValidate = false;
   }
 }
 
@@ -119,11 +149,11 @@ function isBirthDate(birthdate){
   if(validateDate(birthdate)){
     //console.log("birthdate:ok");
     document.getElementById("missingBirthdate").style.display = "none";
-    validityResult = true;
+    birthdateValidate = true;
   }else{
     //console.log("birthdate:error");
     document.getElementById("missingBirthdate").style.display = "block";
-    validityResult = false;
+    birthdateValidate = false;
   }
 }
 
@@ -131,57 +161,58 @@ function checkTournamentNumber(data){
   if(!isNaN(data) && data>=0){
     //console.log("tournament:ok");
     document.getElementById("missingTournamentQuantity").style.display = "none";
-    validityResult = true;
+    tournamentNumberValidate = true;
   }else{
     //console.log("tournament:error");
     document.getElementById("missingTournamentQuantity").style.display = "block";
-    validityResult = false;
+    tournamentNumberValidate = false;
   }
 }
 
 function isCityBtnSelected(){
- if((location1.checked == true ||
-  location2.checked == true ||
-  location3.checked == true ||
-  location4.checked == true ||
-  location5.checked == true ||
-  location6.checked == true
-  )&& (quantity.value > 0)){
-    console.log("city:ok");
-    document.getElementById("missingCity").style.display = "none";
-    validityResult = true;
-  }else if((quantity.value == 0)&&(location1.checked == false &&
-    location2.checked == false &&
-    location3.checked == false &&
-    location4.checked == false &&
-    location5.checked == false &&
-    location6.checked == false
-    )){
-    console.log("0 city:ok");
-    document.getElementById("missingCity").style.display = "none";
-    validityResult = true;
-  }else{
-    console.log("no-check");
-    document.getElementById("missingCity").style.display = "block";
-    validityResult = false;
+  let checknb = 0;
+  for(let i = 1; i < 7; i++){
+    if (document.getElementById('location'+i).checked)
+    {
+      checknb++;
+      //console.log(checknb);
+    }
   }
+  if (checknb===1){
+    document.getElementById("missingCity").style.display = "none";
+    isCitySelectedValidate = true;
+  }else{
+    document.getElementById("missingCity").style.display = "block";
+    isCitySelectedValidate = false;
+  }
+
+
+  
 }
 
 function isConditionChecked(data){
   if(data.checked == true){
     //console.log("check-condition:ok");
     document.getElementById("missingValidation").style.display = "none";
-    validityResult = true;
+    isConditionCheckedValidate = true;
   }else{
     //console.log("check-condition:error");
     document.getElementById("missingValidation").style.display = "block";
-    validityResult = false;
+    isConditionCheckedValidate = false;
   }
 }
 
-function validateMessageDisplay(result){
-  if(result){
-    window.alert("Votre message a bien été transféré. Merci à vous.");
+function validateMessageDisplay(){
     close();
-  }
+    modalSuccess.style.display = "flex";
+}
+
+function reset(){
+  console.log("test");
+  /*firstName.textContent = "coucou";
+  lastName.textContent = "";
+  email.textContent = "";
+  birthdate.textContent = "";*/
+  form.reset();
+  console.log("test");
 }
