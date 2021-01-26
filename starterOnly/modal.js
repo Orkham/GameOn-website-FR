@@ -94,12 +94,12 @@ endButton.addEventListener("click",closeSuccess);
 // vérification des données
 
 function checkFirst(data){
-  if(data.length > 1){
-    //console.log("first:ok");
+  if((data.length > 1)&&(isLetterOnly(data))==0){
+    console.log("first:ok");
     document.getElementById("missingFirstName").style.display = "none";
     firstNameValidate = true;
   }else{
-    //console.log("first:error");
+    console.log("first:error");
     document.getElementById("missingFirstName").style.display = "block";
     firstNameValidate = false;
   }
@@ -207,12 +207,21 @@ function validateMessageDisplay(){
     modalSuccess.style.display = "flex";
 }
 
-function reset(){
-  console.log("test");
-  /*firstName.textContent = "coucou";
-  lastName.textContent = "";
-  email.textContent = "";
-  birthdate.textContent = "";*/
-  form.reset();
-  console.log("test");
+
+
+
+function isLetterOnly(str){
+  let re = new RegExp("[a-zàéèêâôîûçäëïöü]+$");
+  let firstNameArray = str.toLowerCase().split("");
+  let verifLetter = 0;
+  for(let i = 0; i < firstNameArray.length; i++){
+    if(!re.test(firstNameArray[i])){
+      console.log(firstNameArray[i]);
+      console.log("error");
+      verifLetter++;
+    }
+  }
+  return verifLetter;
 }
+console.log(isLetterOnly(firstName.value));
+
