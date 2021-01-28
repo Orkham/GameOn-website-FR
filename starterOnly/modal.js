@@ -52,7 +52,9 @@ function validate(e){
     tournamentNumberValidate == true &&
     isCitySelectedValidate == true &&
     isConditionCheckedValidate == true){
+      
       validateMessageDisplay();
+      /*reserve.submit();*/
       form.reset();
       
   }else{
@@ -60,17 +62,20 @@ function validate(e){
   };
   
 }
+//écouteur bouton soumission formulaire
 submitBtn.addEventListener("click",validate);
+
 // check validation form
 function checkForm(){
   checkFirst(firstName.value);
   checkLast(lastName.value);
   checkEmail(email.value);
   isBirthDate(birthdate.value);
-  checkTournamentNumber(quantity.value);
+  checkTournamentNumber(tournamentNumber.value);
   isCityBtnSelected();
   isConditionChecked(checkboxCondition);
 }
+
 // fermeture modal
 function close(){
   modalbg.style.display = "none";
@@ -91,22 +96,25 @@ function closeSuccess(){
 }
 endButton.addEventListener("click",closeSuccess);
 
+
 // vérification des données
 
+// vérification si prénom au moins deux lettres et composé de lettres uniquement
 function checkFirst(data){
   if((data.length > 1)&&(isLetterOnly(data))==0){
-    console.log("first:ok");
+    //console.log("first:ok");
     document.getElementById("missingFirstName").style.display = "none";
     firstNameValidate = true;
   }else{
-    console.log("first:error");
+    //console.log("first:error");
     document.getElementById("missingFirstName").style.display = "block";
     firstNameValidate = false;
   }
 }
 
+// vérification si nom au moins deux lettres et composé de lettres uniquement
 function checkLast(data){
-  if(data.length > 1){
+  if((data.length > 1)&&(isLetterOnly(data))==0){
     //console.log("last:ok");
     document.getElementById("missingLastName").style.display = "none";
     lastNameValidate = true;
@@ -117,7 +125,8 @@ function checkLast(data){
   }
 }
 
-/*** VERIFICATION VALIDITE ADRESSE MAIL REGEX ***/
+
+/*** VERIFICATION VALIDITE ADRESSE MAIL REGEXP ***/
 function validateEmail(email){      
   let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   //console.log(emailPattern.test(email));
@@ -138,15 +147,22 @@ function checkEmail(email){
 }
 
 /*** VERIFICATION VALIDITE DATE ***/
+//vérification si la date est bien rentrée
 function validateDate(date){
   let datePattern = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
   //console.log(datePattern.test(date));
+  //console.log(date);
   return datePattern.test(date);
 }
 /*** ***/
 
 function isBirthDate(birthdate){
-  if(validateDate(birthdate)){
+  //vérification si date valide et antérieur à aujourd'hui
+  let today = new Date();
+  let birthdateObj = new Date(birthdate);
+  //console.log(birthdateObj.getFullYear());
+  //console.log(today.getFullYear());
+  if((validateDate(birthdate))&&(birthdateObj <= today)){
     //console.log("birthdate:ok");
     document.getElementById("missingBirthdate").style.display = "none";
     birthdateValidate = true;
@@ -158,8 +174,10 @@ function isBirthDate(birthdate){
 }
 
 function checkTournamentNumber(data){
-  if(!isNaN(data) && data>=0){
-    //console.log("tournament:ok");
+  //vérification si le nombre de tournois est un nombre positif ou nul (.trim pour annuler espaces)
+  if(!isNaN(data) && data>=0 && data<100 && data.trim()!=""){
+    /*console.log(data);
+    console.log("tournament:ok");*/
     document.getElementById("missingTournamentQuantity").style.display = "none";
     tournamentNumberValidate = true;
   }else{
@@ -170,7 +188,9 @@ function checkTournamentNumber(data){
 }
 
 function isCityBtnSelected(){
+  //vérification une seule ville de sélectionnée
   let checknb = 0;
+  //boucle sur les checkbox pour vérifier si checker
   for(let i = 1; i < 7; i++){
     if (document.getElementById('location'+i).checked)
     {
@@ -190,6 +210,7 @@ function isCityBtnSelected(){
   
 }
 
+//vérification des conditions d'utilisation
 function isConditionChecked(data){
   if(data.checked == true){
     //console.log("check-condition:ok");
@@ -202,6 +223,7 @@ function isConditionChecked(data){
   }
 }
 
+//apparition de la fenêtre de succès de validation
 function validateMessageDisplay(){
     close();
     modalSuccess.style.display = "flex";
@@ -209,9 +231,12 @@ function validateMessageDisplay(){
 
 
 
+//fonction pour vérifier si un string est composé que de lettres
+
+/*** reste à ajouter tirets apostrophes ***/
 
 function isLetterOnly(str){
-  let re = new RegExp("[a-zàéèêâôîûçäëïöü]+$");
+  let re = new RegExp("^[a-zàéèêâôîûçäëïöü]+$");
   let firstNameArray = str.toLowerCase().split("");
   let verifLetter = 0;
   for(let i = 0; i < firstNameArray.length; i++){
@@ -223,5 +248,5 @@ function isLetterOnly(str){
   }
   return verifLetter;
 }
-console.log(isLetterOnly(firstName.value));
+//console.log(isLetterOnly(firstName.value));
 

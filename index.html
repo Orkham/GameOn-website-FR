@@ -66,7 +66,7 @@
           <span class="close" id ="closeBtn"></span>
 
           <div class="modal-body">
-            <form name="reserve" action="index.html" method="get" id="form" onsubmit="return validate();">
+            <form name="reserve" action="index.html" method="get" id="form">
 
               <div class="formData">
                 <label for="first">Prénom</label><p class="missingData" id="missingFirstName">Veuillez indiquer votre prénom :</p>
@@ -94,7 +94,7 @@
 
               <div class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><p class="missingData" id="missingTournamentQuantity">Veuillez indiquer le nombre de tournois auxquels vous avez déjà participé :</p>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <input type="text" class="text-control" id="quantity" name="quantity">
                 
               </div>
 
