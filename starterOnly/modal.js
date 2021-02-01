@@ -14,6 +14,7 @@ const modalSuccess = document.querySelector(".modalSuccess");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.getElementById("closeBtn");
+const navBtn = document.getElementById("navButton");
 // FORM Elements
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
@@ -21,6 +22,7 @@ const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const tournamentNumber = document.getElementById("quantity");
 const submitBtn = document.getElementById("submit-btn");
+const hiddenRadio = document.getElementById("hiddenRadio");
 const location1 = document.getElementById("location1");
 const location2 = document.getElementById("location2");
 const location3 = document.getElementById("location3");
@@ -39,8 +41,9 @@ let tournamentNumberValidate;
 let isCitySelectedValidate;
 let isConditionCheckedValidate;
 
-
-
+console.log(document.forms.reserve);
+// responsive nav
+navBtn.addEventListener("click",editNav);
 // submit form
 function validate(e){
   e.preventDefault();
@@ -53,10 +56,10 @@ function validate(e){
     isCitySelectedValidate == true &&
     isConditionCheckedValidate == true){
       
-      validateMessageDisplay();
-      /*reserve.submit();*/
-      form.reset();
+      sendData();
       
+      form.reset();
+
   }else{
     e.preventDefault();
   };
@@ -189,16 +192,9 @@ function checkTournamentNumber(data){
 
 function isCityBtnSelected(){
   //vérification une seule ville de sélectionnée
-  let checknb = 0;
-  //boucle sur les checkbox pour vérifier si checker
-  for(let i = 1; i < 7; i++){
-    if (document.getElementById('location'+i).checked)
-    {
-      checknb++;
-      //console.log(checknb);
-    }
-  }
-  if (checknb===1){
+  
+  if (!hiddenRadio.checked){
+    //console.log("ok");
     document.getElementById("missingCity").style.display = "none";
     isCitySelectedValidate = true;
   }else{
@@ -206,8 +202,6 @@ function isCityBtnSelected(){
     isCitySelectedValidate = false;
   }
 
-
-  
 }
 
 //vérification des conditions d'utilisation
@@ -231,18 +225,16 @@ function validateMessageDisplay(){
 
 
 
-//fonction pour vérifier si un string est composé que de lettres
-
-/*** reste à ajouter tirets apostrophes ***/
+//fonction pour vérifier si un string est composé que de lettres, tirets ou apostrophes
 
 function isLetterOnly(str){
-  let re = new RegExp("^[a-zàéèêâôîûçäëïöü]+$");
+  let re = new RegExp("^[a-zàéèêâôîûçäëïöüù'-]+$");
   let firstNameArray = str.toLowerCase().split("");
   let verifLetter = 0;
   for(let i = 0; i < firstNameArray.length; i++){
     if(!re.test(firstNameArray[i])){
-      console.log(firstNameArray[i]);
-      console.log("error");
+      /*console.log(firstNameArray[i]);
+      console.log("error");*/
       verifLetter++;
     }
   }
@@ -250,3 +242,28 @@ function isLetterOnly(str){
 }
 //console.log(isLetterOnly(firstName.value));
 
+
+
+
+function sendData() {
+  let XHR = new XMLHttpRequest();
+  let form = document.getElementById("form");
+  let FD  = new FormData(form);
+  
+  // Définissez ce qui se passe si la soumission s'est opérée avec succès
+  XHR.addEventListener('load', function(event) {
+    validateMessageDisplay();
+  });
+
+  // Definissez ce qui se passe en cas d'erreur
+  XHR.addEventListener('error', function(event) {
+    alert('Oups! Quelque chose s\'est mal passé.');
+  });
+
+  // Configurez la requête
+  XHR.open('GET', 'index.html');
+
+  // Expédiez l'objet FormData ; les en-têtes HTTP sont automatiquement définies
+  XHR.send(FD); 
+  
+}  

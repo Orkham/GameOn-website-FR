@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <title>Reservation</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="starterOnly/modal.css" />
   </head>
 
@@ -27,7 +27,7 @@
         <a href="#"><span>À propos</span></a>
         <a href="#"><span>Contact</span></a>
         <a href="#"><span>Évènements passés</span></a>
-        <a href="javascript:void(0);" class="icon" onclick="editNav()">
+        <a href="#" class="icon" id="navButton">
           <i class="fa fa-bars"></i>
         </a>
 
@@ -66,7 +66,7 @@
           <span class="close" id ="closeBtn"></span>
 
           <div class="modal-body">
-            <form name="reserve" action="index.html" method="get" id="form">
+            <form name="reserve" action="index.html" method="GET" id="form">
 
               <div class="formData">
                 <label for="first">Prénom</label><p class="missingData" id="missingFirstName">Veuillez indiquer votre prénom :</p>
@@ -104,37 +104,43 @@
 
                 <p class="missingData" id="missingCity">Veuillez indiquez la ville dans laquelle vous souhaitez participer :</p>
 
-                <input class="checkbox-input" type="checkbox" id="location1" name="location" value="New York"/>
+                <input class="checkbox-input hidden" type="radio" id="hiddenRadio" name="location" value="hidden" checked/>
+                <label class="checkbox-label hidden" for="hiddenRadio">
+                  <span class="checkbox-icon"></span>
+                  Hidden
+                </label>
+
+                <input class="checkbox-input" type="radio" id="location1" name="location" value="New York"/>
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
                   New York
                 </label>
 
-                <input class="checkbox-input" type="checkbox" id="location2" name="location" value="San Francisco"/>
+                <input class="checkbox-input" type="radio" id="location2" name="location" value="San Francisco"/>
                 <label class="checkbox-label" for="location2">
                   <span class="checkbox-icon"></span>
                   San Francisco
                 </label>
 
-                <input class="checkbox-input" type="checkbox" id="location3" name="location" value="Seattle"/>
+                <input class="checkbox-input" type="radio" id="location3" name="location" value="Seattle"/>
                 <label class="checkbox-label" for="location3">
                   <span class="checkbox-icon"></span>
                   Seattle
                 </label>
 
-                <input class="checkbox-input" type="checkbox" id="location4" name="location" value="Chicago"/>
+                <input class="checkbox-input" type="radio" id="location4" name="location" value="Chicago"/>
                 <label class="checkbox-label" for="location4">
                   <span class="checkbox-icon"></span>
                   Chicago
                 </label>
 
-                <input class="checkbox-input" type="checkbox" id="location5" name="location" value="Boston"/>
+                <input class="checkbox-input" type="radio" id="location5" name="location" value="Boston"/>
                 <label class="checkbox-label" for="location5">
                   <span class="checkbox-icon"></span>
                   Boston
                 </label>
 
-                <input class="checkbox-input" type="checkbox" id="location6" name="location" value="Portland"/>
+                <input class="checkbox-input" type="radio" id="location6" name="location" value="Portland"/>
                 <label class="checkbox-label" for="location6">
                   <span class="checkbox-icon"></span>
                   Portland
