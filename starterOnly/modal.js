@@ -12,7 +12,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalSuccess = document.querySelector(".modalSuccess");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
+//const formData = document.querySelectorAll(".formData");
 const closeBtn = document.getElementById("closeBtn");
 const navBtn = document.getElementById("navButton");
 // FORM Elements
@@ -23,12 +23,12 @@ const birthdate = document.getElementById("birthdate");
 const tournamentNumber = document.getElementById("quantity");
 const submitBtn = document.getElementById("submit-btn");
 const hiddenRadio = document.getElementById("hiddenRadio");
-const location1 = document.getElementById("location1");
+/*const location1 = document.getElementById("location1");
 const location2 = document.getElementById("location2");
 const location3 = document.getElementById("location3");
 const location4 = document.getElementById("location4");
 const location5 = document.getElementById("location5");
-const location6 = document.getElementById("location6");
+const location6 = document.getElementById("location6");*/
 const checkboxCondition = document.getElementById("checkbox1");
 const endButton = document.getElementById("end-btn");
 const form = document.getElementById("form");
@@ -44,7 +44,7 @@ let isConditionCheckedValidate;
 console.log(document.forms.reserve);
 // responsive nav
 navBtn.addEventListener("click",editNav);
-// submit form
+
 function validate(e){
   e.preventDefault();
   checkForm();
@@ -74,7 +74,7 @@ function checkForm(){
   checkLast(lastName.value);
   checkEmail(email.value);
   isBirthDate(birthdate.value);
-  checkTournamentNumber(tournamentNumber.value);
+  checkTournamentNumber(tournamentNumber);
   isCityBtnSelected();
   isConditionChecked(checkboxCondition);
 }
@@ -129,7 +129,7 @@ function checkLast(data){
 }
 
 
-/*** VERIFICATION VALIDITE ADRESSE MAIL REGEXP ***/
+/*** VERIFICATION VALIDITE ADRESSE MAIL REGEX ***/
 function validateEmail(email){      
   let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   //console.log(emailPattern.test(email));
@@ -163,9 +163,9 @@ function isBirthDate(birthdate){
   //vérification si date valide et antérieur à aujourd'hui
   let today = new Date();
   let birthdateObj = new Date(birthdate);
-  //console.log(birthdateObj.getFullYear());
+  console.log(birthdateObj.getFullYear());
   //console.log(today.getFullYear());
-  if((validateDate(birthdate))&&(birthdateObj <= today)){
+  if((validateDate(birthdate)) && (birthdateObj <= today) && birthdateObj.getFullYear()>1900){
     //console.log("birthdate:ok");
     document.getElementById("missingBirthdate").style.display = "none";
     birthdateValidate = true;
@@ -178,9 +178,10 @@ function isBirthDate(birthdate){
 
 function checkTournamentNumber(data){
   //vérification si le nombre de tournois est un nombre positif ou nul (.trim pour annuler espaces)
-  if(!isNaN(data) && data>=0 && data<100 && data.trim()!=""){
-    /*console.log(data);
-    console.log("tournament:ok");*/
+  
+  if(Number.isInteger(data.valueAsNumber) && data.valueAsNumber>=0 && data.valueAsNumber<100 && data.valueAsNumber.trim()!=""){
+    console.log(Number.isInteger(data));
+    
     document.getElementById("missingTournamentQuantity").style.display = "none";
     tournamentNumberValidate = true;
   }else{
@@ -233,17 +234,15 @@ function isLetterOnly(str){
   let verifLetter = 0;
   for(let i = 0; i < firstNameArray.length; i++){
     if(!re.test(firstNameArray[i])){
-      /*console.log(firstNameArray[i]);
-      console.log("error");*/
       verifLetter++;
     }
   }
   return verifLetter;
 }
-//console.log(isLetterOnly(firstName.value));
 
 
 
+/*** FONCTION ENVOI DU FORMULAIRE ***/
 
 function sendData() {
   let XHR = new XMLHttpRequest();
