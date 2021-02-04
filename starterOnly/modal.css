@@ -1,9 +1,9 @@
 
-:root {
+/*:root {
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
-}
+}*/
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   /*background-image: url("background.png");*/
-  font-family: var(--font-default);
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
   font-size: 18px;
   max-width: 1300px;
   margin: 0 auto;
@@ -110,7 +110,7 @@ main {
 .footer {
   margin: 20px;
   padding: 10px;
-  font-family: var(--font-slab);
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
 }
 
 /* Modal form */
@@ -150,7 +150,7 @@ main {
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
-  animation-duration: var(--modal-duration);
+  animation-duration: 0.8s;
   background: #232323;
   border-radius: 10px;
   overflow: hidden;
@@ -165,7 +165,7 @@ main {
 }
 
 label {
-  font-family: var(--font-default);
+  font-family: "DM Sans", Arial, Helvetica, sans-serif;
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
