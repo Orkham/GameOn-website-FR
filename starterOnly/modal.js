@@ -23,12 +23,6 @@ const birthdate = document.getElementById("birthdate");
 const tournamentNumber = document.getElementById("quantity");
 const submitBtn = document.getElementById("submit-btn");
 const hiddenRadio = document.getElementById("hiddenRadio");
-/*const location1 = document.getElementById("location1");
-const location2 = document.getElementById("location2");
-const location3 = document.getElementById("location3");
-const location4 = document.getElementById("location4");
-const location5 = document.getElementById("location5");
-const location6 = document.getElementById("location6");*/
 const checkboxCondition = document.getElementById("checkbox1");
 const endButton = document.getElementById("end-btn");
 const form = document.getElementById("form");
@@ -41,7 +35,7 @@ let tournamentNumberValidate;
 let isCitySelectedValidate;
 let isConditionCheckedValidate;
 
-console.log(document.forms.reserve);
+//console.log(document.forms.reserve);
 // responsive nav
 navBtn.addEventListener("click",editNav);
 
@@ -163,7 +157,7 @@ function isBirthDate(birthdate){
   //vérification si date valide et antérieur à aujourd'hui
   let today = new Date();
   let birthdateObj = new Date(birthdate);
-  console.log(birthdateObj.getFullYear());
+  //console.log(birthdateObj.getFullYear());
   //console.log(today.getFullYear());
   if((validateDate(birthdate)) && (birthdateObj <= today) && birthdateObj.getFullYear()>1900){
     //console.log("birthdate:ok");
@@ -177,10 +171,9 @@ function isBirthDate(birthdate){
 }
 
 function checkTournamentNumber(data){
-  //vérification si le nombre de tournois est un nombre positif ou nul (.trim pour annuler espaces)
+  //vérification si le nombre de tournois est un nombre positif ou nul
   
-  if(Number.isInteger(data.valueAsNumber) && data.valueAsNumber>=0 && data.valueAsNumber<100 && data.valueAsNumber.trim()!=""){
-    console.log(Number.isInteger(data));
+  if(Number.isInteger(data.valueAsNumber) && data.valueAsNumber>=0 && data.valueAsNumber<100){
     
     document.getElementById("missingTournamentQuantity").style.display = "none";
     tournamentNumberValidate = true;
