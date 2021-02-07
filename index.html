@@ -69,35 +69,38 @@
             <form name="reserve" action="index.html" method="GET" id="form">
 
               <div class="formData">
-                <label for="first">Prénom</label><p class="missingData" id="missingFirstName">Veuillez indiquer votre prénom (2 caractères minimum) :</p>
+                <label for="first">Prénom</label>
                 <input class="text-control" type="text" id="first" name="first"/>
+                <p class="missingData" id="missingFirstName">Veuillez indiquer votre prénom (2 caractères minimum)</p>
               </div>
 
               <div class="formData">
-                <label for="last">Nom</label><p class="missingData" id="missingLastName">Veuillez indiquer votre nom (2 caractères minimum) :</p>
+                <label for="last">Nom</label>
                 <input class="text-control" type="text" id="last" name="last"/>
+                <p class="missingData" id="missingLastName">Veuillez indiquer votre nom (2 caractères minimum)</p>
               </div>
 
               <div class="formData">
-                <label for="email">E-mail</label><p class="missingData" id="missingMail">Veuillez indiquer un email valide (gameon@gmail.com) :</p>
-                <input class="text-control" type="email" id="email" name="email"/>  
+                <label for="email">E-mail</label>
+                <input class="text-control" type="email" id="email" name="email"/>
+                <p class="missingData" id="missingMail">Veuillez indiquer un email valide (gameon@gmail.com)</p>
               </div>
 
               <div class="formData">
-                <label for="birthdate">Date de naissance</label><p class="missingData" id="missingBirthdate">Veuillez indiquer votre date de naissance :</p>
-                <input class="text-control" type="date" id="birthdate" name="birthdate"/> 
+                <label for="birthdate">Date de naissance</label>
+                <input class="text-control" type="date" id="birthdate" name="birthdate"/>
+                <p class="missingData" id="missingBirthdate">Veuillez indiquer votre date de naissance</p>
               </div>
 
               <div class="formData">
-                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><p class="missingData" id="missingTournamentQuantity">Veuillez indiquer le nombre de tournois auxquels vous avez déjà participé (>0) :</p>
+                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label>
                 <input type="number" class="text-control" id="quantity" name="quantity">
+                <p class="missingData" id="missingTournamentQuantity">Veuillez indiquer le nombre de tournois auxquels vous avez déjà participé (>0)</p>
               </div>
 
               <div class="formData">
 
                 <p class="text-label">Dans quelle ville souhaitez-vous participer ?</p>
-
-                <p class="missingData" id="missingCity">Veuillez indiquez la ville dans laquelle vous souhaitez participer :</p>
 
                 <input class="checkbox-input hidden" type="radio" id="hiddenRadio" name="location" value="hidden" checked/>
                 <label class="checkbox-label hidden" for="hiddenRadio">
@@ -140,6 +143,8 @@
                   <span class="checkbox-icon"></span>
                   Portland
                 </label>
+
+                <p class="missingData" id="missingCity">Veuillez indiquez la ville dans laquelle vous souhaitez participer</p>
 
               </div>
 
