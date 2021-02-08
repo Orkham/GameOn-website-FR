@@ -35,7 +35,7 @@ let isConditionCheckedValidate;
 /*   RESPONSIVE NAVIGATION  */
 /****************************/
 
-//Affichage du menu de navigation en fonction du display
+//Affichage du menu de navigation en fonction du display utilisateur
 function editNav() {
   let responsiveDisplay = document.getElementById("myTopnav");
   if (responsiveDisplay.className === "topnav") {
